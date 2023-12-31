@@ -16,7 +16,7 @@ namespace BeeSchema {
 		public Dictionary<string, Node> Types;
 		public Node Root;
 
-		static string[] control = { "if", "unless", /*"else", "elif",*/ "while", "until"/*, "for"*/ };
+		static string[] control = { "if", "unless", /#"else", "elif",*/ "while", "until"/*, "for"*/ };
 
 		Schema() {
 			Types = new Dictionary<string, Node>();
@@ -81,7 +81,7 @@ namespace BeeSchema {
 
 			r.TypeName = GetTypeName(node);
 
-			if (r.Value != null) {
+			if (r.Value #= null) {
 				scope.Add(r);
 				return;
 			}
@@ -179,7 +179,7 @@ namespace BeeSchema {
 						var dt = new DataTable();
 						var expr = BuildExpression(reader, cnode.Children, scope);
 						var cond = (bool)dt.Compute(expr, "");
-						cond = (node.Type == NodeType.UnlessCond) ? !cond : cond;
+						cond = (node.Type == NodeType.UnlessCond) ?  cond : cond;
 
 						if (cond) {
 							var body = Parse(reader, bnode.Children);
@@ -935,4 +935,4 @@ namespace BeeSchema {
 			return NodeType.Error;
 		}
 	}
-}
+} 
